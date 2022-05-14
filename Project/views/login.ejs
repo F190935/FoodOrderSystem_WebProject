@@ -1,15 +1,15 @@
 <body style="background-color: white;background-image: url(https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX7183926.jpg); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
 <div class="row mt-5">
-  <div class="col-md-6 m-auto">
-    <div class="card card-body">
+  <div class="col-md-6 m-auto" style="background-color: black;">
+    <div class="card card-body" style="background-color:rgba(95, 241, 222, 0.841) ;">
       <h1 class="text-center mb-3">
-        <img src="https://dcassetcdn.com/design_img/1348743/167240/167240_6899333_1348743_5bffccfb_image.png" style="width:50%;">
+        <img src="http://localhost:5000/assets/img/slide/logo-1.png" style="width:30%; height: 30%;">
         </img></h1>
-        <h1 class="text-center mb-3">Login</h1>
+        <h1 class="text-center mb-3"><b>Login</b></h1>
       <% include ./partials/messages %>
       <form action="/users/login" method="POST">
         <div class="form-group">
-          <label for="email">Email</label>
+          <label for="email"><b>Email</b></label>
           <input
             type="email"
             id="email"
@@ -19,7 +19,7 @@
           />
         </div>
         <div class="form-group">
-          <label for="password">Password</label>
+          <label for="password"><b>Password</b></label>
           <input
             type="password"
             id="password"
@@ -31,7 +31,7 @@
         <button type="submit" class="btn btn-primary btn-lg btn-block">Login</button>
       </form>
       <p class="lead mt-4">
-        Don't have an Account? <a href="/users/register">Register</a>
+        <b>Don't have an Account? </b><a href="/users/register"><b>Register</b></a>
       </p>
     </div>
   </div>
