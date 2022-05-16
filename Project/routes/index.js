@@ -15,4 +15,46 @@ router.get("/dashboard", ensureAuthenticated, (req, res) =>
   })
 );
 
+// About
+router.get("/about", ensureAuthenticated, (req, res) =>
+  res.render("about", {
+    user: req.user,
+    layout: "layouts/layout"
+  })
+);
+
+// Menu
+router.get("/menu", ensureAuthenticated, (req, res) =>
+  res.render("menu", {
+    user: req.user,
+    layout: "layouts/layout"
+  })
+);
+
+// Specials
+router.get("/specials", ensureAuthenticated, (req, res) =>
+  res.render("specials", {
+    user: req.user,
+    layout: "layouts/layout"
+  })
+);
+
+// Events
+router.get("/events", ensureAuthenticated, (req, res) =>
+  res.render("events", {
+    user: req.user,
+    layout: "layouts/layout"
+  })
+);
+
+// Chefs
+router.get("/chefs", ensureAuthenticated, (req, res) =>
+  res.render("chefs", {
+    user: req.user,
+    layout: "layouts/layout"
+  })
+);
+
+
+
 module.exports = router;
