@@ -15,79 +15,83 @@ router.get("/dashboard", ensureAuthenticated, (req, res) =>
   })
 );
 
-<<<<<<< HEAD
 // Gallery
 router.get("/gallery", ensureAuthenticated, (req, res) =>
   res.render("gallery", {
-=======
-// About
-router.get("/about", ensureAuthenticated, (req, res) =>
-  res.render("about", {
->>>>>>> 99591b0a283879b22fb5ed1acfe3d8abb6179a9e
     user: req.user,
     layout: "layouts/layout"
   })
 );
 
-<<<<<<< HEAD
-// Dropdown1
-router.get("/dropdown1", ensureAuthenticated, (req, res) =>
-  res.render("dropdown1", {
-=======
+router.get("/about", ensureAuthenticated, (req, res) =>
+  res.render("about", {
+    user: req.user,
+    layout: "layouts/layout"
+  })
+);
+
 // Menu
 router.get("/menu", ensureAuthenticated, (req, res) =>
   res.render("menu", {
->>>>>>> 99591b0a283879b22fb5ed1acfe3d8abb6179a9e
     user: req.user,
     layout: "layouts/layout"
   })
 );
 
-<<<<<<< HEAD
+// Dropdown1
+router.get("/dropdown1", ensureAuthenticated, (req, res) =>
+  res.render("dropdown1", {
+    user: req.user,
+    layout: "layouts/layout"
+  })
+);
+
 // Dropdown2
 router.get("/dropdown2", ensureAuthenticated, (req, res) =>
   res.render("dropdown2", {
-=======
+    user: req.user,
+    layout: "layouts/layout"
+  })
+);
+
 // Specials
 router.get("/specials", ensureAuthenticated, (req, res) =>
   res.render("specials", {
->>>>>>> 99591b0a283879b22fb5ed1acfe3d8abb6179a9e
     user: req.user,
     layout: "layouts/layout"
   })
 );
 
-<<<<<<< HEAD
 // contact
 router.get("/contact", ensureAuthenticated, (req, res) =>
-  res.render("contact", {
-=======
+res.render("contact", {
+  user: req.user,
+  layout: "layouts/layout"
+})
+);
+
 // Events
 router.get("/events", ensureAuthenticated, (req, res) =>
   res.render("events", {
->>>>>>> 99591b0a283879b22fb5ed1acfe3d8abb6179a9e
     user: req.user,
     layout: "layouts/layout"
   })
 );
 
-<<<<<<< HEAD
 // order
 router.get("/order", ensureAuthenticated, (req, res) =>
   res.render("order", {
-=======
-// Chefs
-router.get("/chefs", ensureAuthenticated, (req, res) =>
-  res.render("chefs", {
->>>>>>> 99591b0a283879b22fb5ed1acfe3d8abb6179a9e
     user: req.user,
     layout: "layouts/layout"
   })
 );
 
-<<<<<<< HEAD
-=======
+// Chefs
+router.get("/chefs", ensureAuthenticated, (req, res) =>
+  res.render("chefs", {
+    user: req.user,
+    layout: "layouts/layout"
+  })
+);
 
-
->>>>>>> 99591b0a283879b22fb5ed1acfe3d8abb6179a9e
 module.exports = router;
