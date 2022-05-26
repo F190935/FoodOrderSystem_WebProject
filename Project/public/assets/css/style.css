@@ -1039,11 +1039,15 @@ section {
   transform: scale(1.1);
 }
 
+.gallery .section-title h2 {
+  color: #fff;
+}
+
 /*--------------------------------------------------------------
 # Chefs
 --------------------------------------------------------------*/
 .chefs {
-  background: url("../img/chefs-bg.jpg") center center no-repeat;
+  background: url("../img/background-chefs.jpg") center center no-repeat;
   background-size: cover;
   padding: 60px 0;
   position: relative;
@@ -1055,7 +1059,7 @@ section {
   right: 0;
   top: 0;
   bottom: 0;
-  background: rgba(255, 255, 255, 0.8);
+  /* background: rgba(255, 255, 255, 0.8); */
   z-index: 9;
 }
 .chefs .container {
@@ -1129,6 +1133,10 @@ section {
   .chefs {
     background-attachment: fixed;
   }
+}
+
+.chefs .section-title h2 {
+  color: #fff;
 }
 
 /*--------------------------------------------------------------
