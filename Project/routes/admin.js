@@ -10,7 +10,7 @@ router.get("/addProduct", (req, res) => {
   });
 });
 
-router.get("/admin", (req, res) => {
+router.get("/admin", ensureAuthenticated, (req, res) => {
   Product.find({}, function (err, prod) {
     if (err) {
       console.log(err);
@@ -23,7 +23,7 @@ router.get("/admin", (req, res) => {
   });
 });
 
-router.get("/update_product", (req, res) => {
+router.get("/update_product", ensureAuthenticated, (req, res) => {
   Product.findById(req.query.id, function (err, prod) {
     if (err) {
       console.log(err);
