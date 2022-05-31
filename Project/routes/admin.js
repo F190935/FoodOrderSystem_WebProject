@@ -1,6 +1,7 @@
 const express = require("express");
 const Product = require("../models/addProduct");
 const router = express.Router();
+const adminController = require('../controllers/admin.controller');
 const { ensureAuthenticated, forwardAuthenticated } = require("../config/auth");
 
 router.get("/addProduct", (req, res) => {
@@ -35,5 +36,16 @@ router.get("/update_product", ensureAuthenticated, (req, res) => {
     });
   });
 });
+
+//admin Login Page
+router.get('/admin_Login', forwardAuthenticated, adminController.login);
+//admin Register Page
+router.get('/admin_Register', forwardAuthenticated, adminController.register);
+
+//admin Register
+router.post('/admin_Register', adminController.registerUser);
+
+//admin Login
+router.post('/admin_Login', adminController.loginUser);
 
 module.exports = router;

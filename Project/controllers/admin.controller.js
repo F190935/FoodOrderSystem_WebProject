@@ -1,6 +1,7 @@
 const bcrypt = require("bcryptjs");
 const passport = require("passport");
-const User = require("../models/adminUser");
+const adminUser = require("../models/adminUser");
+const Admin = require("../models/adminUser");
 
 //Login Function
 exports.login = (req, res) =>
@@ -40,8 +41,8 @@ exports.registerUser = (req, res) => {
       password2
     });
   } else {
-    User.findOne({ email: email }).then(user => {
-      if (user) {
+     Admin.findOne({ email: email }).then(admin => {
+      if (admin) {
         errors.push({ msg: "Email already exists" });
         res.render("register", {
           errors,
@@ -51,24 +52,24 @@ exports.registerUser = (req, res) => {
           password2
         });
       } else {
-        const newUser = new User({
+        const newAdmin = new adminUser({
           name,
           email,
           password
         });
 
         bcrypt.genSalt(10, (err, salt) => {
-          bcrypt.hash(newUser.password, salt, (err, hash) => {
+          bcrypt.hash(newAdmin.password, salt, (err, hash) => {
             if (err) throw err;
-            newUser.password = hash;
-            newUser
+            newAdmin.password = hash;
+            newAdmin
               .save()
-              .then(user => {
+              .then(admin => {
                 req.flash(
                   "success_msg",
                   "You are now registered and can log in"
                 );
-                res.redirect("/users/admin_Login");
+                res.redirect("/adminUI/admin_Login");
               })
               .catch(err => console.log(err));
           });
@@ -80,9 +81,9 @@ exports.registerUser = (req, res) => {
 
 //Handle post request to Login a user
 exports.loginUser = (req, res, next) => {
-  passport.authenticate("local", {
+  passport.authenticate("admin", {
     successRedirect: "/adminUI/admin",
-    failureRedirect: "/users/admin_Login",
+    failureRedirect: "/adminUI/admin_Login",
     failureFlash: true
   })(req, res, next);
 };
