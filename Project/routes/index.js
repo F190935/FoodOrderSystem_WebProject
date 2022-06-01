@@ -94,4 +94,12 @@ router.get("/chefs", ensureAuthenticated, (req, res) =>
   })
 );
 
+// Reviews
+router.get("/reviews", ensureAuthenticated, (req, res) =>
+  res.render("reviews", {
+    user: req.user,
+    layout: "layouts/layout"
+  })
+);
+
 module.exports = router;
