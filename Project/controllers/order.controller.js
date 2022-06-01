@@ -1,8 +1,8 @@
 const { response } = require('express');
-var Userdb = require('../models/order');
+var Orders = require('../models/order');
 
 exports.order = (req,res)=>{   
-    const order = new Userdb({
+    const order = new Orders({
         Name:req.body.name,
         Email:req.body.email, 
         Phone_number:req.body.phone,
@@ -15,7 +15,6 @@ exports.order = (req,res)=>{
     order
         .save(order)
         .then(data => {
-            //res.send(data)
             res.redirect('/menu');
         })
         .catch(err =>{
@@ -32,3 +31,63 @@ exports.order = (req,res)=>{
   }
 
 }
+
+exports.orders = (req, res) =>
+Orders.find({}, function (err, ord) {
+    if (err) {
+      console.log(err);
+    }
+    res.render("adminUI/orders", {
+      user: req.user,
+      ord,
+      layout: "layouts/Layout",
+    });
+});
+
+exports.delete=async(req,res)=>{
+
+    const id = req.params.id;  
+
+    Orders.findByIdAndDelete(id)
+    .then(data => {
+            if(!data){
+                res.status(404).send({ message : `Cannot Delete with Name ${id}. Maybe id is wrong`})
+            }else{
+                res.redirect("/order/display_order");
+            }
+        })
+        .catch(err =>{
+            res.status(500).send({
+                message: "Could not delete User with Name =" + id
+            });
+        });
+}
+
+exports.updateOrder= async(req,res)=>{
+
+    const id = req.params.id;
+    Orders.findByIdAndUpdate(id, req.body, { useFindAndModify: false})
+        .then(data => {
+            if(!data){
+                res.status(404).send({ message : `Cannot Update user with ${id}. Maybe user not found!`})
+            }else{
+                res.redirect("/order/display_order");
+            }
+        })
+        .catch(err =>{
+            console.log(err)
+            res.status(500).send({ message : "Error Update user information"})
+        })
+}
+
+exports.update= (req, res) =>
+    Orders.findById(req.query.id, function (err, ord) {
+      if (err) {
+        console.log(err);
+      }
+      res.render("adminUI/updateOrder", {
+        user: req.user,
+        ord,
+        layout: "layouts/Layout",
+      });
+})
