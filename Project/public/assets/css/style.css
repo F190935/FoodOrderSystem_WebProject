@@ -795,18 +795,27 @@ section {
 }
 .menu .menu-content a {
   padding-right: 10px;
-  background: #fff;
+  padding-top: 10px;
+  background: #ff9b08;
   position: relative;
   z-index: 3;
   font-weight: 700;
-  color: #ff9b08;
+  color: #fff;
+  border-radius: 10px;
+  
+}
+
+.menu .menu-content a:hover{
+  color: red;
 }
 .menu .menu-content span {
-  background: #fff;
+  background: #ff9b08;
   position: relative;
   z-index: 3;
-  padding: 0 10px;
+  padding: 5px 12px;
   font-weight: 600;
+  border-radius: 10px;
+  color: black;
 }
 .menu .menu-ingredients {
   font-style: italic;
