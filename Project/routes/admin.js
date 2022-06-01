@@ -37,6 +37,13 @@ router.get("/update_product", ensureAuthenticated, (req, res) => {
   });
 });
 
+router.get("/adminDashBoard", (req, res) => {
+  res.render("adminUI/adminDashBoard", {
+    user: req.user,
+    layout: "layouts/Layout",
+  });
+});
+
 //admin Login Page
 router.get('/admin_Login', forwardAuthenticated, adminController.login);
 //admin Register Page

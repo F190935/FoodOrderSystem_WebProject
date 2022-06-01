@@ -27,6 +27,35 @@ span {
     color: black;
 }
 
+h1{
+    text-align: center;
+    color: rgb(231, 235, 8);
+    padding: 5px;
+}
+
+nav{
+    background-color: lime !important;
+    display: grid !important;
+    place-items: center;
+}
+
+nav ul{
+    list-style-type: none;
+}
+
+nav ul a{
+    display: inline-block;
+    padding: 20px;
+    text-decoration: none;
+    color: #000;
+    font-weight: bold;
+    transition: 0.2s ease-in;
+}
+
+nav ul a:hover{
+    background-color: green;
+}
+
 .container{
     max-width: 1024px;
     margin: auto;
@@ -244,3 +273,23 @@ table{
     color:whitesmoke;
     font-weight: bold;
 }
+
+div{
+    width: 100%;
+    align-items : center;
+    height: 100%;
+    
+    background-position: center center;
+  
+    background-repeat: no-repeat;
+}
+
+.float-container {
+    padding: 10px;
+}
+
+.float-child {
+    width: 50%;
+    float: left;
+    padding: 15px;
+}  
