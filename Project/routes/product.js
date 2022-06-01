@@ -7,8 +7,6 @@ const { forwardAuthenticated } = require('../config/auth');
 
 router.post('/create', productController.create);
 
-// router.get("/all", productController.find);
-
 router.post("/update/:id", productController.update);
 
 

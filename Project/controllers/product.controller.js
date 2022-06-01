@@ -18,7 +18,6 @@ exports.create = (req,res)=>{
     user
         .save(user)
         .then(data => {
-            //res.send(data)
             res.redirect('/adminUI/admin');
         })
         .catch(err =>{
