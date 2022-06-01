@@ -1,0 +1,31 @@
+<%- include('partials/adminHeader.ejs') %>
+ <!-- Main Site -->
+ <main id="site-main">
+    <div class="container">
+
+        <!-- form handling -->
+        <form action="/" method="get">
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone Number</th>
+                        <th>Food Name</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <%- include('partials/_orders-Show') %>
+                </tbody>
+            </table>
+        </form>
+    </div>
+</main>
+<!-- /Main Site -->
+
+<!-- Footer -->
+<%- include('partials/adminFooter.ejs') %>
+
