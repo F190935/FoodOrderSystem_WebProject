@@ -2,6 +2,9 @@ const bcrypt = require("bcryptjs");
 const passport = require("passport");
 // Load User model
 const User = require("../models/User");
+const sendEmail = require("../utils/sendEmail");
+const Token=require('../models/token')
+const crypto=require("crypto")
 
 //Login Function
 exports.login = (req, res) =>
@@ -72,6 +75,14 @@ exports.registerUser = (req, res) => {
                 res.redirect("/users/login");
               })
               .catch(err => console.log(err));
+              const tok = crypto.randomBytes(32).toString("hex");
+              const token = new Token({
+                userId: newUser._id,
+                token: tok,
+              }).save();
+              console.log(email);
+              const url='http://localhost:5000/users/${newUser.id}/verify${tok}';
+              sendEmail(newUser.email, "verify Email", url);
           });
         });
       }

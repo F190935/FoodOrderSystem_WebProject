@@ -9,7 +9,7 @@ module.exports = async (email, subject, text) => {
                 pass: 'Zainul10',
             },
         });
-
+        console.log(email);
         await transporter.sendMail({
             from: 'kuch57bhi@gmail.com',
             to: email,
