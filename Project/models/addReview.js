@@ -11,4 +11,6 @@ const UserSchema=new mongoose.Schema({
    },
 });
 
-module.exports = mongoose.model('Reviews', UserSchema);
+//const Review= mongoose.model('Review', UserSchema);
+
+module.exports = mongoose.model('Review', UserSchema);

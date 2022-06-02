@@ -4,12 +4,12 @@ var Userdb = require('../models/addReview');
 // create and insert review
 exports.create = (req,res)=>{
 
-    console.log(req.body.food_review,req.star3)
+    
     const review = new Userdb({
        food_review:req.body.food_review,
        food_rating:req.body.food_rating,
     });
-    console.log(review);
+    
     // save review in the database
     review
         .save(review)

@@ -67,6 +67,15 @@ app.use("/products", require("./routes/product.js"));
 app.use("/order", require("./routes/order.route.js"));
 app.use("/reviews", require("./routes/reviews.js"));
 
+
+// app.get('/',(req,res)=>{
+//   Review.find({}, function(err,reviews){
+//     res.render('reviews',{
+//       reviewsList: reviews
+//     })
+//   })
+// })
+
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, console.log(`Server started on port ${PORT}`));
