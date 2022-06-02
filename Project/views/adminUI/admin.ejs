@@ -8,6 +8,13 @@
             </a>
         </div>
 
+        <br>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" id="searchName" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit" style="color: #e9e41d; border-color: yellow;">Search</button>
+        </form>
+
+
         <!-- form handling -->
         <form action="/" method="get">
             <table class="table">
@@ -36,3 +43,17 @@
 <!-- Footer -->
 <%- include('partials/adminFooter.ejs') %>
 
+<script>
+    $(document).ready(function() {
+        $('#searchName').keydown(function() {
+            var searchText = $('#searchName').val().toLowerCase();
+            var rows = document.getElementsByClassName('data-color')
+            for (var i = 0; i < rows.length; i++){
+                if(searchText === "" || rows[i].textContent.toLowerCase().includes(searchText))
+                    $(rows[i]).show();
+                else
+                    $(rows[i]).hide();
+            }
+        })
+    })
+</script>
