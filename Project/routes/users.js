@@ -7,6 +7,7 @@ const sendEmail=require('../utils/sendEmail.js')
 const User = require('../models/User')
 // Load User Controller
 const userController = require('../controllers/user.controller')
+const reviewController = require('../controllers/review.controller')
 const { forwardAuthenticated } = require('../config/auth');
 const req = require('express/lib/request');
 
@@ -24,6 +25,9 @@ router.post('/login', userController.loginUser);
 
 // Logout
 router.get('/logout', userController.logout);
+
+//review
+router.get('/reviews',reviewController.all);
 
 //forgotPassword
 router.get('/forgotPassword', (req, res) =>

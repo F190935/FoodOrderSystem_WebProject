@@ -32,4 +32,14 @@ exports.create = (req,res)=>{
 
 }
 
+exports.all=(req,res)=>{
+    review=req.params.id;
+    Userdb.find({reference:review},function(err,review){
+        if(err){ 
+        return res.status(400).json({err:"Something went wrong!"});
+    }
+    res.status(200).render("reviews",{user: req.user, review:review});
+ });
+};
+
 
