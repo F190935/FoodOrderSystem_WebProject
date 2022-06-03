@@ -1,6 +1,10 @@
 const express = require("express");
 const Product = require("../models/addProduct");
 const router = express.Router();
+const bcrypt=require('bcryptjs')
+const crypto=require("crypto")
+const Token=require('../models/token')
+const User = require('../models/User')
 const adminController = require('../controllers/admin.controller');
 const { ensureAuthenticated, forwardAuthenticated } = require("../config/auth");
 
@@ -55,4 +59,149 @@ router.post('/admin_Register', adminController.registerUser);
 //admin Login
 router.post('/admin_Login', adminController.loginUser);
 
+//forgotPassword
+router.get('/adminForgotPassword', (req, res) =>
+res.render("adminUI/adminForgotPassword", {
+  user: req.user,
+  layout: "layouts/layout"
+})
+);
+
+let mail;
+router.post('/adminForgotPassword', (req, res) => {
+    const { email } = req.body;
+    let errors = [];
+
+    if (!email) {
+        errors.push({ msg: 'Please enter E-Mail' });
+    }
+
+    if (errors.length > 0) {
+        res.render('forgotPassword', {
+            errors,
+            email
+        });
+    } else {
+        User.findOne({ email: email }).then(user => {
+            if (!user) {
+                errors.push({ msg: 'Email doesnot exists' });
+                res.render('forgotPassword', {
+                    errors,
+                    email
+                });
+            } else {
+                const tok = crypto.randomBytes(32).toString("hex");
+                const token = new Token({
+                    userId: user._id,
+                    token: tok,
+                }).save();
+                const url = `http://localhost:5000/users/forgotPassword/${user.id}/verify/${tok}`;
+                sendEmail(user.email, "Change Password", url);
+                res.render('successEmail');
+            }
+        });
+    }
+});
+
+router.get("/forgotPassword/:id/verify/:token/", async(req, res) => {
+    try {
+        const user = await User.findOne({ _id: req.params.id });
+        if (!user) return res.status(400).send({ message: "Invalid link" });
+
+        const token = await Token.findOne({
+            userId: user._id,
+            token: req.params.token,
+        });
+        if (!token) return res.status(400).send({ message: "Invalid link" });
+        await token.remove();
+        var string = encodeURIComponent(user.email);
+         mail = user.email;
+        res.redirect('/users/resetPassword');
+    } catch (error) {
+        res.status(500).send({ message: "Internal Server Error" });
+    }
+});
+
+
+//resetPassword
+router.get('/resetPassword', (req, res) =>
+res.render("adminUI/resetPassword", {
+  user: req.user,
+  layout: "layouts/layout"
+})
+);
+
+router.post('/resetPassword', (req, res) => {
+    const { password, password2 } = req.body;
+    let errors = [];
+
+    if (password != password2) {
+        errors.push({ msg: 'Passwords do not match' });
+    }
+
+    if (password.length < 6) {
+        errors.push({ msg: 'Password must be at least 6 characters' });
+    }
+
+    if (errors.length > 0) {
+        res.render('resetPassword', {
+            errors,
+            password,
+            password2
+        });
+    } else {
+        User.findOne({ email: mail }).then(user => {
+            if (!user) {
+                errors.push({ msg: 'Email doesnot exists' });
+                res.render('resetPassword', {
+                    errors,
+                    password,
+                    password2
+                });
+            } else {
+                let pass = password;
+                async function main() {
+                    await user.updateOne({password: pass });
+                }
+                
+                bcrypt.genSalt(10, (err, salt) => {
+                    bcrypt.hash(password, salt, (err, hash) => {
+
+                        if (err) console.log("error");
+                        pass = hash;
+                        main();
+                        req.flash('success_msg', 'Password Changed');
+                        res.redirect('/users/login');
+                    });
+                });
+
+            }
+        });
+    }
+});
+
+
+//sendEmail
+router.get("/:id/verify/:token/", async(req, res) => {
+    try {
+        const user = await User.findOne({ _id: req.params.id });
+        if (!user) return res.status(400).send({ message: "Invalid link" });
+  
+        const token = await Token.findOne({
+            userId: user._id,
+            token: req.params.token,
+        });
+        if (!token) return res.status(400).send({ message: "Invalid link" });
+  
+        await User.updateOne({ _id: user._id, verified: true });
+        await token.remove();
+        req.flash(
+            'success_msg',
+            'E-Mail Verified'
+        );
+        res.redirect('/users/login');
+    } catch (error) {
+        res.status(500).send({ message: "Internal Server Error" });
+    }
+  });
 module.exports = router;
