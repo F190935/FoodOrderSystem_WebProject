@@ -91,7 +91,7 @@ router.post('/adminForgotPassword', (req, res) => {
     }
 
     if (errors.length > 0) {
-        res.render('forgotPassword', {
+        res.render('adminUI/adminForgotPassword', {
             errors,
             email
         });
@@ -99,7 +99,7 @@ router.post('/adminForgotPassword', (req, res) => {
         User.findOne({ email: email }).then(user => {
             if (!user) {
                 errors.push({ msg: 'Email doesnot exists' });
-                res.render('forgotPassword', {
+                res.render('adminUI/adminForgotPassword', {
                     errors,
                     email
                 });
@@ -111,7 +111,7 @@ router.post('/adminForgotPassword', (req, res) => {
                 }).save();
                 const url = `http://localhost:5000/users/forgotPassword/${user.id}/verify/${tok}`;
                 sendEmail(user.email, "Change Password", url);
-                res.render('successEmail');
+                res.render('adminUI/adminSuccessEmail');
             }
         });
     }
@@ -130,7 +130,7 @@ router.get("/forgotPassword/:id/verify/:token/", async(req, res) => {
         await token.remove();
         var string = encodeURIComponent(user.email);
          mail = user.email;
-        res.redirect('/users/resetPassword');
+        res.redirect('/adminUI/adminResetPassword');
     } catch (error) {
         res.status(500).send({ message: "Internal Server Error" });
     }
@@ -158,7 +158,7 @@ router.post('/resetPassword', (req, res) => {
     }
 
     if (errors.length > 0) {
-        res.render('resetPassword', {
+        res.render('adminUI/resetPassword', {
             errors,
             password,
             password2
@@ -167,7 +167,7 @@ router.post('/resetPassword', (req, res) => {
         User.findOne({ email: mail }).then(user => {
             if (!user) {
                 errors.push({ msg: 'Email doesnot exists' });
-                res.render('resetPassword', {
+                res.render('adminUI/resetPassword', {
                     errors,
                     password,
                     password2
@@ -185,7 +185,7 @@ router.post('/resetPassword', (req, res) => {
                         pass = hash;
                         main();
                         req.flash('success_msg', 'Password Changed');
-                        res.redirect('/users/login');
+                        res.redirect('/adminUI/admin_Login');
                     });
                 });
 
@@ -213,7 +213,7 @@ router.get("/:id/verify/:token/", async(req, res) => {
             'success_msg',
             'E-Mail Verified'
         );
-        res.redirect('/users/login');
+        res.redirect('/adminUI/admin_Login');
     } catch (error) {
         res.status(500).send({ message: "Internal Server Error" });
     }
