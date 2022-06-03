@@ -39,7 +39,7 @@ router.get("/admin/:page", ensureAuthenticated, async (req, res, next) => {
        })
     });
   
-  });
+});
   
 
 router.get("/update_product", ensureAuthenticated, (req, res) => {

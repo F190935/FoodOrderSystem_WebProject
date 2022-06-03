@@ -5,7 +5,7 @@ const orderController = require('../controllers/order.controller')
 
 router.post('/orders', ensureAuthenticated, orderController.order);
 
-router.get('/display_order', ensureAuthenticated, orderController.orders)
+router.get('/display_order/:page', ensureAuthenticated, orderController.orders)
 
 router.get('/updateOrder', ensureAuthenticated, orderController.update)
 

@@ -32,18 +32,31 @@ exports.order = (req,res)=>{
 
 }
 
-exports.orders = (req, res) =>
-Orders.find({}, function (err, ord) {
-    if (err) {
-      console.log(err);
-    }
-    res.render("adminUI/orders", {
-      user: req.user,
-      ord,
-      layout: "layouts/Layout",
-    });
+exports.orders = async (req, res, next) => {
+    var perPage = 3;
+    var page = req.params.page || 1;
+  
+    Orders.find({})
+    .skip((perPage * page) - perPage)
+    .limit(perPage)
+    .exec(function(err, ord) {
+        Orders.count().exec(function(err, count){
+        if (err) {
+            console.log(err);
+            res.status(500).send('An error occurred', err);
+        } else {
+            res.render("adminUI/orders", {
+                user: req.user,
+                layout: "layouts/layout",
+                ord,
+                current: page,
+                pages: Math.ceil(count / perPage) 
+            })
+        }
+       })
 });
-
+}
+  
 exports.delete=async(req,res)=>{
 
     const id = req.params.id;  

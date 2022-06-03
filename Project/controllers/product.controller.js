@@ -3,8 +3,6 @@ var Userdb = require('../models/addProduct');
 
 // create and insert new product
 exports.create = (req,res)=>{
- 
-    console.log("In Create");
     
     const user = new Userdb({
        food_name:req.body.food_name,
@@ -13,12 +11,11 @@ exports.create = (req,res)=>{
        Description:req.body.Description,
        Price:req.body.Price,
     });
-    console.log(user);
     // save product in the database
     user
         .save(user)
         .then(data => {
-            res.redirect('/adminUI/admin');
+            res.redirect('/adminUI/admin/1');
         })
         .catch(err =>{
             res.status(500).send({
@@ -47,14 +44,13 @@ exports.find =  async(req,res)=>
 //Updating a product
 exports.update= async(req,res)=>{
 
-    console.log("In Update");
     const id = req.params.id;
     Userdb.findByIdAndUpdate(id, req.body, { useFindAndModify: false})
         .then(data => {
             if(!data){
                 res.status(404).send({ message : `Cannot Update user with ${id}. Maybe user not found!`})
             }else{
-                res.redirect("/adminUI/admin");
+                res.redirect("/adminUI/admin/1");
             }
         })
         .catch(err =>{
@@ -66,16 +62,13 @@ exports.update= async(req,res)=>{
 //Deleting a Product
 exports.delete=async(req,res)=>{
 
-    console.log("Inside DEL");
-
     const id = req.params.id;
-    console.log(id);
     Userdb.findByIdAndDelete(id)
         .then(data => {
             if(!data){
                 res.status(404).send({ message : `Cannot Delete with id ${id}. Maybe id is wrong`})
             }else{
-                res.redirect("/adminUI/admin");
+                res.redirect("/adminUI/admin/1");
             }
         })
         .catch(err =>{
