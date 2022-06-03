@@ -312,4 +312,31 @@ div{
     width: 50%;
     float: left;
     padding: 15px;
-}  
+}
+
+/*Pagination*/
+.center {
+text-align: center;
+}
+
+.pagination {
+display: inline-block;
+}
+
+.pagination a {
+color: yellow;
+float: left;
+padding: 8px 16px;
+text-decoration: none;
+transition: background-color .3s;
+border: 2px solid #ddd;
+margin: 0 4px;
+}
+
+.pagination a.active {
+background-color: yellow;
+color: black;
+border: 1px solid #4CAF50;
+}
+
+.pagination a:hover:not(.active) {background-color: lime;}

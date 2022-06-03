@@ -15,18 +15,32 @@ router.get("/addProduct", (req, res) => {
   });
 });
 
-router.get("/admin", ensureAuthenticated, (req, res) => {
-  Product.find({}, function (err, prod) {
-    if (err) {
-      console.log(err);
-    }
-    res.render("adminUI/admin", {
-      user: req.user,
-      prod,
-      layout: "layouts/Layout",
+router.get("/admin/:page", ensureAuthenticated, async (req, res, next) => {
+    var perPage = 3;
+    var page = req.params.page || 1;
+  
+    Product.find({})
+    .skip((perPage * page) - perPage)
+    .limit(perPage)
+    .exec(function(err, prod) {
+        Product.count().exec(function(err, count){
+        if (err) {
+            console.log(err);
+            res.status(500).send('An error occurred', err);
+        } else {
+            res.render("adminUI/admin", {
+                user: req.user,
+                layout: "layouts/layout",
+                prod,
+                current: page,
+                pages: Math.ceil(count / perPage) 
+            })
+        }
+       })
     });
+  
   });
-});
+  
 
 router.get("/update_product", ensureAuthenticated, (req, res) => {
   Product.findById(req.query.id, function (err, prod) {

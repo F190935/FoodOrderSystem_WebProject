@@ -82,7 +82,7 @@ exports.registerUser = (req, res) => {
 //Handle post request to Login a user
 exports.loginUser = (req, res, next) => {
   passport.authenticate("admin", {
-    successRedirect: "/adminUI/admin",
+    successRedirect: "/adminUI/admin/1",
     failureRedirect: "/adminUI/admin_Login",
     failureFlash: true
   })(req, res, next);

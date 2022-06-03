@@ -3,7 +3,7 @@
  <main id="site-main">
     <div class="container">
         <div class="box-nav d-flex justify-between">
-            <a href="addProduct" class="border-shadow">
+            <a href="/adminUI/addProduct" class="border-shadow">
                 <span class="text-gradient" style="font-size:medium; font-weight: bold;">Add Product <i class="fas fa-pizza-slice" style="font-size:19px"></i></span>
             </a>
         </div>
@@ -36,6 +36,39 @@
                 </tbody>
             </table>
         </form>
+
+        <div class="center">
+            <% if (pages > 0) { %>
+              <div class="center"></div>
+              <div class="pagination">
+              <% if(current == 1) { %>
+              <a class="disabled">&laquo;</a>
+              <% } else { %>
+              <a href="/adminUI/admin/1">&laquo;</a>
+              <% } %>
+              <% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
+              <% if (i !== 1) { %>
+                <li class="disabled"></li>
+              <% } %>
+              <% for (; i <= (Number(current) + 4) && i <= pages; i++) { %>
+                <% if (i == current) { %>
+                  <a class="active"><%= i %></a>
+                <% } else { %>
+                  <a href="/adminUI/admin/<%= i %>"><%= i %></a>
+                <% } %>
+                <% if (i == Number(current) + 4 && i < pages) { %>
+                  <li class="disabled"></li>
+                <% } %>
+              <% } %>
+              <% if (current == pages) { %>
+                <li class="disabled"></li>
+              <% } else { %>
+                <a href="/adminUI/admin/<%= pages %>">&raquo;</a>
+              <% } %>
+              </div>
+            </div>
+            <% } %>
+          </div>
     </div>
 </main>
 <!-- /Main Site -->
