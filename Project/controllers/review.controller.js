@@ -33,12 +33,3 @@ exports.create = (req,res)=>{
 }
 
 
-// exports.find =  async(req,res)=>
-// {
-//     const product= await Userdb.find();
-//     res.json(
-//         product
-//    )
-// }
-
-

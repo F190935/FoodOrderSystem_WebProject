@@ -8,7 +8,7 @@ const User = require('../models/User')
 const adminController = require('../controllers/admin.controller');
 const { ensureAuthenticated, forwardAuthenticated } = require("../config/auth");
 
-router.get("/addProduct", (req, res) => {
+router.get("/addProduct", ensureAuthenticated,(req, res) => {
   res.render("adminUI/addProduct", {
     user: req.user,
     layout: "layouts/Layout",
@@ -55,7 +55,7 @@ router.get("/update_product", ensureAuthenticated, (req, res) => {
   });
 });
 
-router.get("/adminDashBoard", (req, res) => {
+router.get("/adminDashBoard", ensureAuthenticated, (req, res) => {
   res.render("adminUI/adminDashBoard", {
     user: req.user,
     layout: "layouts/Layout",

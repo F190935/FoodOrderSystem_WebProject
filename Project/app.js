@@ -25,7 +25,6 @@ app.use(expressLayouts);
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "public")));
 
-//app.set("views", path.join(__dirname, "views/layouts"));
 // Express body parser
 app.use(express.urlencoded({ extended: true }));
 
@@ -61,20 +60,10 @@ app.use(function(req, res, next) {
 // Routes
 app.use("/", require("./routes/index.js"));
 app.use("/users", require("./routes/users.js"));
-app.use("/student", require("./routes/student.route.js"));
 app.use("/adminUI", require("./routes/admin.js"));
 app.use("/products", require("./routes/product.js"));
 app.use("/order", require("./routes/order.route.js"));
 app.use("/reviews", require("./routes/reviews.js"));
-
-
-// app.get('/',(req,res)=>{
-//   Review.find({}, function(err,reviews){
-//     res.render('reviews',{
-//       reviewsList: reviews
-//     })
-//   })
-// })
 
 const PORT = process.env.PORT || 5000;
 
